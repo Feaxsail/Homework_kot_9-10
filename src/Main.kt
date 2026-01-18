@@ -120,7 +120,7 @@ fun demonstrateDataClasses() {
     println("\n" + "=".repeat(50))
 }
 
-
+// ========== ФУНКЦИИ ДЛЯ ЗАДАНИЯ 4 ==========
 fun demonstrateAbstractClasses() {
     println("\n=== ЗАДАНИЕ 4: Абстрактные классы и наследование ===\n")
 
@@ -158,7 +158,7 @@ fun demonstrateAbstractClasses() {
 fun demonstratePolymorphism() {
     println("\n=== ЗАДАНИЕ 5: Интерфейсы и полиморфизм ===\n")
 
-    // 1. Создаём объекты разных классов, реализующих один интерфейс
+
     val employee = Employee(
         fullName = "Щербаков Данил Николаевич",
         position = "Старший Дотер по пуджу",
@@ -208,6 +208,140 @@ fun demonstratePolymorphism() {
     println("\n" + "=".repeat(50))
 }
 
+// ========== ФУНКЦИИ ДЛЯ ЗАДАНИЯ 6 ==========
+fun demonstrateIntegration() {
+    println("\n=== ЗАДАНИЕ 6: Интеграция ===\n")
+
+
+    println("1. Создание сотрудника:")
+    val employee = Employee(
+        fullName = "Щербаков Данил Николаевич",
+        position = "Разработчик",
+        salary = 120000,
+        yearsOfExperience = 8
+    )
+    employee.printEmployeeInfo()
+
+
+    println("\n2. Создание задач:")
+    val task1 = Task(
+        title = "Разработать новый модуль",
+        description = "Создать модуль управления задачами",
+        priority = Priority.HIGH
+    )
+
+    val task2 = Task(
+        title = "Протестировать модуль",
+        description = "Провести unit-тестирование нового модуля",
+        priority = Priority.MEDIUM
+    )
+
+    val task3 = Task(
+        title = "Рефакторинг кода",
+        description = "Улучшить читаемость существующего кода",
+        priority = Priority.LOW,
+        isCompleted = true
+    )
+
+    println("Задача 1: ${task1.title} (Приоритет: ${task1.priority})")
+    println("Задача 2: ${task2.title} (Приоритет: ${task2.priority})")
+    println("Задача 3: ${task3.title} (Приоритет: ${task3.priority}, Статус: ${if (task3.isCompleted) "Выполнена" else "В работе"})")
+
+
+    println("\n3. Назначение задач сотруднику:")
+
+    println("\nПервое назначение:")
+    employee.assignTask(task1)
+    println("Текущая задача сотрудника: ${employee.currentTask?.title ?: "Нет задачи"}")
+
+    println("\nВторое назначение (пока задача не завершена):")
+    employee.assignTask(task2) // Должно показать предупреждение
+
+
+    println("\n4. Завершение текущей задачи:")
+    employee.currentTask?.isCompleted = true
+    println("Задача '${task1.title}' завершена: ${task1.isCompleted}")
+
+
+    println("\n5. Назначение новой задачи после завершения предыдущей:")
+    employee.assignTask(task2)
+    println("Текущая задача сотрудника: ${employee.currentTask?.title ?: "Нет задачи"}")
+
+
+    println("\n6. Создание отделов:")
+    val devDepartment = DevelopmentDepartment()
+    val testDepartment = TestingDepartment()
+
+    println("Отдел разработки: ${devDepartment.departmentName}")
+    println("Отдел тестирования: ${testDepartment.departmentName}")
+
+
+    println("\n7. Работа отделов:")
+    println("Отдел разработки:")
+    devDepartment.writeCode()
+
+    println("\nОтдел тестирования:")
+    testDepartment.testApplication()
+
+
+    println("\n8. Сводный отчёт по системе:")
+    println("=".repeat(60))
+
+
+    val allEntities: List<Any> = listOf(employee, task1, task2, task3, devDepartment, testDepartment)
+
+    println("Всего сущностей в системе: ${allEntities.size}")
+    println("\nДетализация:")
+
+    allEntities.forEachIndexed { index, entity ->
+        println("\n${index + 1}. ${entity::class.simpleName}:")
+        when (entity) {
+            is Employee -> {
+                println("   • ФИО: ${entity.getFullName()}")
+                println("   • Должность: ${entity.getPosition()}")
+                println("   • Текущая задача: ${entity.currentTask?.title ?: "Нет задачи"}")
+            }
+            is Task -> {
+                println("   • Название: ${entity.title}")
+                println("   • Приоритет: ${entity.priority}")
+                println("   • Статус: ${if (entity.isCompleted) "Выполнена" else "В работе"}")
+            }
+            is Department -> {
+                println("   • Название отдела: ${entity.departmentName}")
+            }
+            else -> println("   • Неизвестный тип")
+        }
+    }
+
+
+    println("\n9. Генерация отчётов всех компонентов:")
+    println("=".repeat(60))
+
+    val reportGenerators: List<ReportGenerator> = allEntities.filterIsInstance<ReportGenerator>()
+
+    reportGenerators.forEachIndexed { index, generator ->
+        println("\nОтчёт ${index + 1} (${generator::class.simpleName}):")
+        println("-".repeat(40))
+        println(generator.generateReport())
+    }
+
+
+    println("\n10. Итоги интеграции:")
+    println("=".repeat(60))
+
+    val totalTasks = allEntities.filterIsInstance<Task>().size
+    val completedTasks = allEntities.filterIsInstance<Task>().count { it.isCompleted }
+    val departmentsCount = allEntities.filterIsInstance<Department>().size
+
+    println("✅ Создано сотрудников: 1")
+    println("✅ Создано задач: $totalTasks (из них выполнено: $completedTasks)")
+    println("✅ Создано отделов: $departmentsCount")
+    println("✅ Все сущности успешно интегрированы")
+    println("✅ Система работает корректно")
+
+    println("\n" + "=".repeat(50))
+}
+
 // ========== ГЛАВНАЯ ФУНКЦИЯ ==========
 fun main() {
     println("\n" + "=".repeat(50))
@@ -226,6 +360,9 @@ fun main() {
     // Выполняем Задание 5
     demonstratePolymorphism()
 
-    println("\nВСЕ ЗАДАНИЯ ВЫПОЛНЕНЫ УСПЕШНО!")
+    // Выполняем Задание 6
+    demonstrateIntegration()
+
+    println("\nВСЕ ЗАДАНИЯ (2-6) ВЫПОЛНЕНЫ УСПЕШНО!")
     println("=".repeat(50))
 }

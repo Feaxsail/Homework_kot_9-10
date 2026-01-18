@@ -52,6 +52,9 @@ class Employee(
         println("Должность: $position")
         println("Зарплата: $salary руб.")
         println("Опыт работы: $yearsOfExperience лет")
+        if (currentTask != null) {
+            println("Текущая задача: ${currentTask?.title}")
+        }
         println("=".repeat(30))
     }
 
@@ -59,6 +62,7 @@ class Employee(
     fun assignTask(newTask: Task) {
         if (currentTask != null && currentTask?.isCompleted == false) {
             println("Сотрудник уже занят задачей: ${currentTask?.title}")
+            println("Не удалось назначить задачу: ${newTask.title}")
         } else {
             currentTask = newTask
             println("Сотруднику назначена новая задача: ${newTask.title}")
@@ -76,6 +80,7 @@ class Employee(
             | Зарплата:       $salary руб.
             | Опыт работы:    $yearsOfExperience лет
             | Текущая задача: ${currentTask?.title ?: "Нет задачи"}
+            | Статус задачи:  ${if (currentTask?.isCompleted == true) "Выполнена" else currentTask?.let { "В работе" } ?: "Нет задачи"}
             |=========================================
             | Сотрудник активен и выполняет свои обязанности.
             | Дата формирования: 2024-01-15
