@@ -1,39 +1,147 @@
-fun main() {
-    println("=== Тестирование класса Employee ===\n")
+// Main.kt
 
+// ========== ФУНКЦИИ ДЛЯ ЗАДАНИЯ 2 ==========
 
+/**
+ * Тестирование класса Employee - Задание 2
+ */
+fun testEmployeeClass() {
+    println("=== ЗАДАНИЕ 2: Тестирование класса Employee ===\n")
+
+    // 1. Создаём объект сотрудника
     val employee = Employee(
         fullName = "Щербаков Данил Николаевич",
-        position = "Дотер",
-        salary = 75000,
-        yearsOfExperience = 5
+        position = "Старший Дотер по пуджу",
+        salary = 120000,
+        yearsOfExperience = 8
     )
 
 
-    employee.printInfo()
+    println("1. Начальная информация:")
+    employee.printEmployeeInfo()
 
-    println("\n=== Тестирование сеттеров ===\n")
 
-    println("1. Попытка установить зарплату: -5000")
+    println("\n2. Тестирование сеттера зарплаты:")
+    println("Попытка установить зарплату: -5000")
     employee.setSalary(-5000)
     println("Текущая зарплата: ${employee.getSalary()}")
 
-    println("\n2. Установка зарплаты: 80000")
-    employee.setSalary(80000)
+    println("\nПопытка установить зарплату: 150000")
+    employee.setSalary(150000)
     println("Текущая зарплата: ${employee.getSalary()}")
 
-    println("\n3. Попытка установить опыт работы: 60 лет")
+
+    println("\n3. Тестирование сеттера опыта работы:")
+    println("Попытка установить опыт: 60 лет")
     employee.setYearsOfExperience(60)
     println("Текущий опыт: ${employee.getYearsOfExperience()} лет")
 
-    println("\n4. Попытка установить опыт работы: -3 года")
-    employee.setYearsOfExperience(-3)
+    println("\nПопытка установить опыт: -5 лет")
+    employee.setYearsOfExperience(-5)
     println("Текущий опыт: ${employee.getYearsOfExperience()} лет")
 
-    println("\n5. Установка опыта работы: 7 лет")
-    employee.setYearsOfExperience(7)
+    println("\nПопытка установить опыт: 12 лет")
+    employee.setYearsOfExperience(12)
     println("Текущий опыт: ${employee.getYearsOfExperience()} лет")
 
-    println("\n=== Финальная информация о сотруднике ===")
-    employee.printInfo()
+    println("\n4. Финальная информация о сотруднике:")
+    employee.printEmployeeInfo()
+
+    println("\n5. Демонстрация работы геттеров:")
+    println("ФИО: ${employee.getFullName()}")
+    println("Должность: ${employee.getPosition()}")
+    println("Зарплата: ${employee.getSalary()}")
+    println("Опыт: ${employee.getYearsOfExperience()} лет")
+
+    println("\n" + "=".repeat(50) + "\n")
+}
+
+fun demonstrateDataClasses() {
+    println("=== ЗАДАНИЕ 3: Демонстрация работы data-классов ===\n")
+
+    val task1 = Task(
+        title = "Рефакторинг кода",
+        description = "Улучшить читаемость кода модуля",
+        priority = Priority.MEDIUM
+    )
+
+    val task2 = Task(
+        title = "Рефакторинг кода",
+        description = "Улучшить читаемость кода модуля",
+        priority = Priority.MEDIUM
+    )
+
+    val task3 = Task(
+        title = "Рефакторинг кода",
+        description = "Улучшить читаемость кода модуля",
+        priority = Priority.MEDIUM
+    )
+
+    val task4 = Task(
+        title = "Написать тесты",
+        description = "Создать unit-тесты для нового функционала",
+        priority = Priority.HIGH,
+        isCompleted = true
+    )
+
+    println("1. Демонстрация метода toString():")
+    println("task1: $task1")
+    println("task4: $task4")
+
+    println("\n2. Демонстрация метода equals():")
+    println("task1 == task2: ${task1 == task2}")
+    println("task1 == task4: ${task1 == task4}")
+    println("task2 == task3: ${task2 == task3}")
+
+    println("\n3. Демонстрация метода hashCode():")
+    println("hashCode task1: ${task1.hashCode()}")
+    println("hashCode task2: ${task2.hashCode()}")
+    println("hashCode task3: ${task3.hashCode()}")
+    println("hashCode task4: ${task4.hashCode()}")
+    println("hashCode task1 == hashCode task2: ${task1.hashCode() == task2.hashCode()}")
+    println("hashCode task1 == hashCode task4: ${task1.hashCode() == task4.hashCode()}")
+
+    println("\n4. Демонстрация метода copy():")
+    val copiedTask = task1.copy(
+        priority = Priority.HIGH,
+        isCompleted = true
+    )
+    println("Оригинал (task1): $task1")
+    println("Копия с изменениями: $copiedTask")
+
+
+    val lowPriorityTask = task4.copy(priority = Priority.LOW)
+    println("Копия task4 с LOW приоритетом: $lowPriorityTask")
+
+    println("\n5. Декомпозиция (Destructuring Declaration):")
+    val (title, description, priority, isCompleted) = task4
+    println("Название: $title")
+    println("Описание: $description")
+    println("Приоритет: $priority")
+    println("Выполнена: $isCompleted")
+
+
+    val (title1, description1, priority1, isCompleted1) = task1
+    println("\nДекомпозиция task1:")
+    println("Название: $title1")
+    println("Описание: $description1")
+    println("Приоритет: $priority1")
+    println("Выполнена: $isCompleted1")
+
+    println("\n" + "=".repeat(50))
+}
+
+fun main() {
+    println("\n" + "=".repeat(50))
+    println("ЛАБОРАТОРНАЯ РАБОТА 9-10: САМОСТОЯТЕЛЬНЫЕ ЗАДАНИЯ")
+    println("=".repeat(50) + "\n")
+
+    // Выполняем Задание 2
+    testEmployeeClass()
+
+    // Выполняем Задание 3
+    demonstrateDataClasses()
+
+    println("\nВСЕ ЗАДАНИЯ ВЫПОЛНЕНЫ УСПЕШНО!")
+    println("=".repeat(50))
 }

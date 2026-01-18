@@ -41,4 +41,12 @@ class Employee(
             Опыт работы: $yearsOfExperience лет
         """.trimIndent())
     }
+    fun printEmployeeInfo() {
+        println("=== ИНФОРМАЦИЯ О СОТРУДНИКЕ ===")
+        println("ФИО: $fullName")
+        println("Должность: $position")
+        println("Зарплата: $salary руб.")
+        println("Опыт работы: $yearsOfExperience лет")
+        println("=".repeat(30))
+    }
 }
