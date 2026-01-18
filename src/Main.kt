@@ -120,7 +120,7 @@ fun demonstrateDataClasses() {
     println("\n" + "=".repeat(50))
 }
 
-// ========== ФУНКЦИИ ДЛЯ ЗАДАНИЯ 4 ==========
+
 fun demonstrateAbstractClasses() {
     println("\n=== ЗАДАНИЕ 4: Абстрактные классы и наследование ===\n")
 
@@ -154,19 +154,77 @@ fun demonstrateAbstractClasses() {
     println("\n" + "=".repeat(50))
 }
 
+
+fun demonstratePolymorphism() {
+    println("\n=== ЗАДАНИЕ 5: Интерфейсы и полиморфизм ===\n")
+
+    // 1. Создаём объекты разных классов, реализующих один интерфейс
+    val employee = Employee(
+        fullName = "Щербаков Данил Николаевич",
+        position = "Старший Дотер по пуджу",
+        salary = 120000,
+        yearsOfExperience = 8
+    )
+
+    val devDepartment = DevelopmentDepartment()
+    val testDepartment = TestingDepartment()
+
+
+    val reportGenerators: List<ReportGenerator> = listOf(employee, devDepartment, testDepartment)
+
+    println("1. Создан список из ${reportGenerators.size} элементов, реализующих интерфейс ReportGenerator")
+    println("   Типы элементов: Employee, DevelopmentDepartment, TestingDepartment")
+
+
+    println("\n2. Демонстрация полиморфизма через вызов generateReport():")
+    println("=".repeat(60))
+
+    for ((index, generator) in reportGenerators.withIndex()) {
+        println("\n--- Элемент ${index + 1} (${generator::class.simpleName}) ---")
+        println(generator.generateReport())
+        println("=".repeat(60))
+    }
+
+
+    println("\n3. Дополнительная демонстрация полиморфизма:")
+
+    val mixedList: List<Any> = listOf(employee, devDepartment, testDepartment, "Строка", 42)
+
+    println("   Смешанный список содержит ${mixedList.size} элементов разных типов")
+
+    val reportCount = mixedList.count { it is ReportGenerator }
+    println("   Из них $reportCount элементов реализуют интерфейс ReportGenerator")
+
+
+    println("\n4. Фильтрация по интерфейсу и генерация отчётов:")
+
+    mixedList
+        .filterIsInstance<ReportGenerator>()
+        .forEach { generator ->
+            println("\nГенерация отчёта для ${generator::class.simpleName}:")
+            println(generator.generateReport().lines().first())
+        }
+
+    println("\n" + "=".repeat(50))
+}
+
 // ========== ГЛАВНАЯ ФУНКЦИЯ ==========
 fun main() {
     println("\n" + "=".repeat(50))
     println("ЛАБОРАТОРНАЯ РАБОТА 9-10: САМОСТОЯТЕЛЬНЫЕ ЗАДАНИЯ")
     println("=".repeat(50) + "\n")
 
-    // Задание 2
+    // Выполняем Задание 2
     testEmployeeClass()
 
-    //  Задание 3
+    // Выполняем Задание 3
     demonstrateDataClasses()
-    // Задание 4
+
+    // Выполняем Задание 4
     demonstrateAbstractClasses()
+
+    // Выполняем Задание 5
+    demonstratePolymorphism()
 
     println("\nВСЕ ЗАДАНИЯ ВЫПОЛНЕНЫ УСПЕШНО!")
     println("=".repeat(50))
