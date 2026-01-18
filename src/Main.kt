@@ -1,14 +1,7 @@
-// Main.kt
-
 // ========== ФУНКЦИИ ДЛЯ ЗАДАНИЯ 2 ==========
-
-/**
- * Тестирование класса Employee - Задание 2
- */
 fun testEmployeeClass() {
     println("=== ЗАДАНИЕ 2: Тестирование класса Employee ===\n")
 
-    // 1. Создаём объект сотрудника
     val employee = Employee(
         fullName = "Щербаков Данил Николаевич",
         position = "Старший Дотер по пуджу",
@@ -16,10 +9,8 @@ fun testEmployeeClass() {
         yearsOfExperience = 8
     )
 
-
     println("1. Начальная информация:")
     employee.printEmployeeInfo()
-
 
     println("\n2. Тестирование сеттера зарплаты:")
     println("Попытка установить зарплату: -5000")
@@ -29,7 +20,6 @@ fun testEmployeeClass() {
     println("\nПопытка установить зарплату: 150000")
     employee.setSalary(150000)
     println("Текущая зарплата: ${employee.getSalary()}")
-
 
     println("\n3. Тестирование сеттера опыта работы:")
     println("Попытка установить опыт: 60 лет")
@@ -56,6 +46,7 @@ fun testEmployeeClass() {
     println("\n" + "=".repeat(50) + "\n")
 }
 
+// ========== ФУНКЦИИ ДЛЯ ЗАДАНИЯ 3 ==========
 fun demonstrateDataClasses() {
     println("=== ЗАДАНИЕ 3: Демонстрация работы data-классов ===\n")
 
@@ -109,7 +100,6 @@ fun demonstrateDataClasses() {
     println("Оригинал (task1): $task1")
     println("Копия с изменениями: $copiedTask")
 
-
     val lowPriorityTask = task4.copy(priority = Priority.LOW)
     println("Копия task4 с LOW приоритетом: $lowPriorityTask")
 
@@ -119,7 +109,6 @@ fun demonstrateDataClasses() {
     println("Описание: $description")
     println("Приоритет: $priority")
     println("Выполнена: $isCompleted")
-
 
     val (title1, description1, priority1, isCompleted1) = task1
     println("\nДекомпозиция task1:")
@@ -131,16 +120,53 @@ fun demonstrateDataClasses() {
     println("\n" + "=".repeat(50))
 }
 
+// ========== ФУНКЦИИ ДЛЯ ЗАДАНИЯ 4 ==========
+fun demonstrateAbstractClasses() {
+    println("\n=== ЗАДАНИЕ 4: Абстрактные классы и наследование ===\n")
+
+    val devDepartment = DevelopmentDepartment()
+    val testDepartment = TestingDepartment()
+
+    println("1. Работа абстрактного класса Department:")
+
+    val departments: List<Department> = listOf(devDepartment, testDepartment)
+
+    departments.forEach { department ->
+        println("\n---")
+        department.printDepartmentInfo()
+        department.printDepartmentGoal()
+    }
+
+    println("\n2. Полиморфизм через список отделов:")
+
+    for (department in departments) {
+        println("Отдел: ${department.departmentName}")
+    }
+
+    println("\n3. Специфичные методы каждого отдела:")
+
+    println("Разработка:")
+    devDepartment.writeCode()
+
+    println("\nТестирование:")
+    testDepartment.testApplication()
+
+    println("\n" + "=".repeat(50))
+}
+
+// ========== ГЛАВНАЯ ФУНКЦИЯ ==========
 fun main() {
     println("\n" + "=".repeat(50))
     println("ЛАБОРАТОРНАЯ РАБОТА 9-10: САМОСТОЯТЕЛЬНЫЕ ЗАДАНИЯ")
     println("=".repeat(50) + "\n")
 
-    // Выполняем Задание 2
+    // Задание 2
     testEmployeeClass()
 
-    // Выполняем Задание 3
+    //  Задание 3
     demonstrateDataClasses()
+    // Задание 4
+    demonstrateAbstractClasses()
 
     println("\nВСЕ ЗАДАНИЯ ВЫПОЛНЕНЫ УСПЕШНО!")
     println("=".repeat(50))
